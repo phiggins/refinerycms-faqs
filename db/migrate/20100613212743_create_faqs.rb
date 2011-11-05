@@ -1,44 +1,39 @@
 class CreateFaqs < ActiveRecord::Migration
 
-  def self.up
-    create_table :faqs do |t|
+  def up
+    create_table :refinery_faqs do |t|
       t.string :title
-      t.text :description
-      t.string :tag
+      t.text :body
       t.integer :position
 
       t.timestamps
     end
 
-    add_index :faqs, :id
-
-    User.find(:all).each do |user|
-      user.plugins.create(:title => "Faqs", :position => (user.plugins.maximum(:position) || -1) +1)
+    Refinery::User.find(:all).each do |user|
+      user.plugins.create(:title => "faqs", :position => (user.plugins.maximum(:position) || -1) +1)
     end
 
-    page = Page.create(
-      :title => "Faqs",
+    position = (Refinery::Page.where(:parent_id => nil).maximum(:position) || -1) + 1
+
+    page = Refinery::Page.create(
+      :title => "FAQ",
       :link_url => "/faqs",
       :deletable => false,
-      :position => ((Page.maximum(:position, :conditions => "parent_id IS NULL") || -1)+1),
+      :position => position,
       :menu_match => "^/faqs(\/|\/.+?|)$"
     )
-    RefinerySetting.find_or_set(:default_page_parts, ["Body", "Side Body"]).each do |default_page_part|
+
+    Refinery::Setting.find_or_set(:default_page_parts, ["Body", "Side Body"]).each do |default_page_part|
       page.parts.create(:title => default_page_part, :body => nil)
     end
   end
 
   def self.down
-    UserPlugin.destroy_all({:title => "Faqs"})
+    Refinery::UserPlugin.destroy_all(:name => "faqs")
 
-    Page.find_all_by_link_url("/faqs").each do |page|
-      page.link_url, page.menu_match = nil
-      page.deletable = true
-      page.destroy
-    end
-    Page.destroy_all({:link_url => "/faqs"})
+    Refinery::Page.delete_all(:link_url => "/faqs")
 
-    drop_table :faqs
+    drop_table :refinery_faqs
   end
 
 end

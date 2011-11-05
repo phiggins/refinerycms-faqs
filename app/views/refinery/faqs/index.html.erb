@@ -1,0 +1,17 @@
+<% content_for :body_content_left do %>
+  <ul id="faqs">
+    <% @faqs.each do |faq| %>
+      <li>
+        <%= link_to faq.title, "##{faq.title.parameterize}" %>
+      </li>
+    <% end %>
+  </ul>
+
+  <% @faqs.each do |faq| %>
+    <div id="<%= faq.title.parameterize %>">
+      <%= render faq %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= render @page %>
