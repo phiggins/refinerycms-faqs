@@ -2,21 +2,17 @@ en:
   refinery:
     plugins:
       faqs:
-        title: Faqs
+        title: FAQs
     admin:
       faqs:
         actions:
-          create_new: Add New Faq
-          reorder: Reorder Faqs
-          reorder_done: Done Reordering Faqs
+          create_new: Add New FAQ
+          reorder: Reorder FAQs
+          reorder_done: Done Reordering FAQs
         records:
-          title: Faqs
+          title: FAQs
           sorry_no_results: Sorry! There are no results found.
-          no_items_yet: There are no Faqs yet. Click "Add New Faq" to add your first faq.
+          no_items_yet: There are no FAQs yet. Click "Add New FAQ" to add your first FAQ.
         faq:
-          view_live_html: View this faq live <br/><em>(opens in a new window)</em>
-          edit: Edit this faq
-          delete: Remove this faq forever
-    faqs:
-      show:
-        other: Other Faqs
+          edit: Edit this FAQ
+          delete: Remove this FAQ forever
