@@ -18,7 +18,7 @@ module Refinery
           plugin.url = '/refinery/faqs'
           plugin.pathname = root
           plugin.activity = {
-            :class => ::Refinery::Faq
+            :class_name => :'refinery/faq'
           }
         end
       end
