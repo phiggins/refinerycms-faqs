@@ -1,4 +1,4 @@
-::Refinery::Application.routes.draw do
+Rails.application..routes.draw do
   scope(:as => 'refinery', :module => 'refinery') do
     resources :faqs, :only => [:index]
   end
